@@ -1,0 +1,15 @@
+#grid {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2vw;
+  height: 120vh;
+  margin: 1rem;
+  >div {
+    padding: .1em;
+    border-radius: 5px;
+    background: #a8e3de;
+    text-align: center;
+    font-size: 1.3vw;
+  }
+}

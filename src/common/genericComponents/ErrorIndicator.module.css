@@ -1,0 +1,16 @@
+.errorIndicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.errorIndicator img {
+    width: 50%;
+    margin: 50px auto;
+}
+
+.errorIndicator .error {
+    font-size: 2rem;
+    text-align: center;
+}

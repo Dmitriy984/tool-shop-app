@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background: linear-gradient(#c0c7c5, #E8D9A9) fixed;
+}
+#page {
+  display: grid;
+  width: 100%;
+  min-height: 1725px;
+  grid-template: [header-left] "head head" 110px [header-right] [main-left] "nav  main" 1fr [main-right] [footer-left] "foot  foot" 60px [footer-right] / 140px 1fr;
+}
+header {
+  grid-area: head;
+  //display: flex;
+  //flex-direction: row;
+  //justify-content: space-between;
+  //align-content: center;
+  //align-items: center;
+  padding: 13px 30px;
+  background: linear-gradient(to top, #eec9a1 20%, #e4e4d8 50%, #c2b7a1 80%);
+}
+nav {
+  grid-area: nav;
+  background-color: #b9bcbd;
+}
+main {
+  grid-area: main;
+  position: relative;
+}
+footer {
+  grid-area: foot;
+  display: table;
+  background-color: #00fff7;
+  text-align: center;
+  vertical-align: middle;
+}
