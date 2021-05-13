@@ -7,8 +7,8 @@ body {
 #page {
   display: grid;
   width: 100%;
-  min-height: 1725px;
-  grid-template: [header-left] "head head" 110px [header-right] [main-left] "nav  main" 1fr [main-right] [footer-left] "foot  foot" 60px [footer-right] / 140px 1fr;
+  min-height: 975px;
+  grid-template: [header-left] "head head" 110px [header-right] [main-left] "nav  main" 1fr [main-right] [footer-left] "foot  foot" 60px [footer-right] / 250px 1fr;
 }
 header {
   grid-area: head;
@@ -29,6 +29,7 @@ main {
   position: relative;
 }
 footer {
+  height: 100%;
   grid-area: foot;
   display: table;
   background-color: #00fff7;

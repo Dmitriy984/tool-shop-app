@@ -14,6 +14,8 @@ export default function Header({ numItems, total, showModal }) {
             <SearchPanel />
             <button className="btn btn-secondary"  onClick={e => showModal()}
             > Sing In </button>
+            <button className="btn btn-secondary"  onClick={e => showModal()}
+            > Sing Up </button>
             <Link to="/cart" >
                 <i className={`fa fa-shopping-cart`} />
                 {numItems} items (${total})
