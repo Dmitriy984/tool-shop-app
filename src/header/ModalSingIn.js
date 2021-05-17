@@ -3,25 +3,27 @@ import './ModalSingIn.scss';
 
 export default class ModalSingIn extends Component {
     render() {
+        const { caption } = this.props;
+
         if (!this.props.show) {
             return null;
         }
         return (
             <div className="modal__sing_in">
-                <h2>Sing In</h2>
+                <h2>{caption}</h2>
                 <form className="content">
                     <div className="mb-1">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <label htmlFor="inputEmailSingIn" className="form-label">Email address</label>
+                        <input type="email" className="form-control" id="inputEmailSingIn" aria-describedby="emailHelp" />
                     </div>
                     <div className="mb-1">
-                    <label htmlFor="inputPassword5" className="form-label">Password</label>
-                    <input type="password" id="inputPassword5" className="form-control"
+                    <label htmlFor="inputPasswordSingIn" className="form-label">Password</label>
+                    <input type="password" id="inputPasswordSingIn" className="form-control"
                            aria-describedby="passwordHelpBlock" />
                     </div>
                     <div className="mb-1 form-check">
-                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                            <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                        <input type="checkbox" className="form-check-input" id="check1SingIn" />
+                            <label className="form-check-label" htmlFor="check1SingIn">Check me out</label>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

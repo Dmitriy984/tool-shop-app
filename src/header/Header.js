@@ -1,9 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchPanel from "./SearchPanel";
+import {SingInButton} from "./SingInButton";
 import './Header.scss';
+import {SingUpButton} from "./SingUpButton";
+import {SingOutButton} from "./SingOutButton";
 
-export default function Header({ numItems, total, showModal }) {
+export default function Header({ numItems, total, showModalSingIn, isLoggedIn }) {
+    let button;
+    let element;
+    if (isLoggedIn) {
+        button = <SingOutButton />;
+        element = (
+            <Link to="/orders" >
+                <h5>Orders</h5>
+            </Link>
+        );
+    } else {
+        button = <SingInButton showModalSingIn={showModalSingIn}/>;
+        element = <SingUpButton />;
+    }
     return (
         <header
             className={`d-sm-flex flex-sm-row justify-content-between align-items-center`}
@@ -12,13 +28,11 @@ export default function Header({ numItems, total, showModal }) {
                 Tool Shop
             </Link>
             <SearchPanel />
-            <button className="btn btn-secondary"  onClick={e => showModal()}
-            > Sing In </button>
-            <button className="btn btn-secondary"  onClick={e => showModal()}
-            > Sing Up </button>
+            { button }
+            { element }
             <Link to="/cart" >
                 <i className={`fa fa-shopping-cart`} />
-                {numItems} items (${total})
+                {numItems} items (&euro;{total})
             </Link>
         </header>
     );
