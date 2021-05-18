@@ -5,6 +5,7 @@ export default function GoodGridItem({ good, onAddedToCart }) {
     const {
         title,
         image,
+        quantity,
         price
     } = good;
     return (
@@ -12,11 +13,12 @@ export default function GoodGridItem({ good, onAddedToCart }) {
             <img src={image} alt="cover" />
             <p>{title}</p>
             <p>&euro;{price}</p>
+            <p>{quantity}</p>
             <button
                 onClick={onAddedToCart}
                 className="btn btn-info"
             >
-                Add to cart
+                Add to Cart
             </button>
         </div>
     );

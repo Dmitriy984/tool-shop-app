@@ -1,6 +1,6 @@
 export default class ToolsShopApi {
     constructor() {
-        this._apiBase = `http://localhost:4000/`;
+        this._apiBase = `http://localhost:3000/`;
         this.getResource = this.getResource.bind(this);
         this.checkResource = this.checkResource.bind(this);
     }

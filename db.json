@@ -4,12 +4,20 @@
       "id": 1,
       "email": "max@gmail.com",
       "password": "11111111",
-      "cart": [],
+      "cart": [
+        {
+          "id": 1,
+          "title": "Makita FS6300 Drywall Screwdriver 240V",
+          "image": "https://cdn11.bigcommerce.com/s-7holhynnib/images/stencil/original/products/56948/58101/5aafb4bce422a700107579ab__31349.1583489852.jpg",
+          "quantity": 3,
+          "price": 105
+        }
+      ],
       "currentOrders": [],
       "completedOrders": [],
-      "total": 0,
+      "total": 315,
       "totalOrders": [],
-      "isLoggied": false,
+      "isLogged": true,
       "currentOrderNumbers": [],
       "currentOrderDates": [],
       "htmlPage": null
@@ -22,7 +30,7 @@
       "currentOrders": [],
       "completedOrders": [],
       "total": 0,
-      "isLoggied": false
+      "isLogged": false
     },
     {
       "id": 3,
@@ -32,154 +40,7 @@
       "currentOrders": [],
       "completedOrders": [],
       "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1617808980153,
-      "email": "den@g.ru",
-      "password": "666",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1617815985709,
-      "email": "maxi@gmail.cim",
-      "password": "22222222",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1617816142573,
-      "email": "deny@g.ru",
-      "password": "44444",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1617820090233,
-      "email": "dsdfsd@sfsfdf",
-      "password": "dsfsdfdsfsd",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618079332586,
-      "email": "fin@gmail.com",
-      "password": "333",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618079410945,
-      "email": "fing@gmail.com",
-      "password": "111",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618079447860,
-      "email": "deny@gmail.com",
-      "password": "222",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618414083235,
-      "email": "maxim@gmail.com",
-      "password": "777",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "totalOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618422508844,
-      "email": "maxima@gmail.com",
-      "password": "111",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "totalOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618422778444,
-      "email": "maximan@gmail.com",
-      "password": "555",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "totalOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618423653899,
-      "email": "maximana@gmail.com",
-      "password": "111",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "totalOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618423857442,
-      "email": "maxim7@gmail.com",
-      "password": "222",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "totalOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618426912348,
-      "email": "mick@f.r",
-      "password": "333",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "totalOrders": [],
-      "total": 0,
-      "isLoggied": false
-    },
-    {
-      "id": 1618912805366,
-      "email": "bj@rt.y",
-      "password": "111",
-      "cart": [],
-      "currentOrders": [],
-      "completedOrders": [],
-      "totalOrders": [],
-      "total": 0,
-      "isLoggied": false
+      "isLogged": false
     }
   ],
   "unregUsers": [

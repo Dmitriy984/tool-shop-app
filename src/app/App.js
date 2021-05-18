@@ -6,13 +6,33 @@ import CartPage from "../pages/CartPage";
 import OrderPage from "../pages/OrderPage";
 import ModalSingIn from "../header/ModalSingIn";
 import ModalSingUp from "../header/ModalSingUp";
+import {readCookie} from "../common/utils/helpers";
+import compose from "../common/utils/compose";
+import withToolShopApi from "../common/hoc/withToolShopApi";
 import './App.scss';
 
-export default class App extends Component {
+export const login = readCookie("email");
+
+class App extends Component {
     state = {
         show: false,
-        isLoggedIn: false
+        isLoggedIn: false,
+        numItems: 0,
+        total: 0
     };
+
+    componentDidMount() {
+        if (login) {
+            this.props.toolShopApi.checkEmail(login).then(([user]) => {
+                const {id, email, isLogged, cart, total} = user;
+                if (typeof user != "undefined" && isLogged === true) {
+                    this.setState({isLoggedIn: true});
+                    this.setState({numItems: cart.length});
+                    this.setState({total: total});
+                }
+            });
+        }
+    }
 
     showModal = e => {
         this.setState({
@@ -27,13 +47,14 @@ export default class App extends Component {
     };
 
     render() {
+        const { show, isLoggedIn, numItems, total } = this.state;
         return (
             <div id="page">
                 <Header
-                    numItems={5}
-                    total={210}
+                    numItems={numItems}
+                    total={total}
                     showModalSingIn={this.showModal}
-                    isLoggedIn={this.state.isLoggedIn}
+                    isLoggedIn={isLoggedIn}
                 />
                 <nav>
                     Navigation
@@ -42,7 +63,7 @@ export default class App extends Component {
                     <ModalSingIn
                         caption="Sing In"
                         onClose={this.closeModal}
-                        show={this.state.show}
+                        show={show}
                     />
                     <ModalSingUp
                         caption="Sing Up"
@@ -50,9 +71,9 @@ export default class App extends Component {
                         // show={this.state.show}
                     />
                     <Switch>
-                        <Route path="/" exact component={HomePage}/>
-                        <Route path="/cart" component={CartPage}/>
-                        <Route path="/orders" component={OrderPage}/>
+                        <Route path="/" exact component={HomePage} />
+                        <Route path="/cart" component={CartPage} />
+                        <Route path="/orders" component={OrderPage} />
                     </Switch>
                 </main>
                 <footer>
@@ -62,3 +83,7 @@ export default class App extends Component {
         );
     }
 }
+
+export default compose(
+    withToolShopApi()
+)(App);

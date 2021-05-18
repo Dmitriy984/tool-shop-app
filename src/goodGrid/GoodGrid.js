@@ -4,6 +4,7 @@ import compose from "../common/utils/compose";
 import GoodGridItem from "./GoodGridItem";
 import Spinner from "../common/genericComponents/Spinner";
 import ErrorIndicator from "../common/genericComponents/ErrorIndicator";
+import {login} from "../app/App";
 import './GoodGrid.scss';
 
 const GoodGrid = ({goods, onAddedToCart}) => {
@@ -29,7 +30,8 @@ class GoodGridContainer extends Component {
         this.state = {
             goods: [],
             loading: true,
-            error: false
+            error: false,
+            quantity: 0
         };
         this.onAddedToCart = this.onAddedToCart.bind(this);
     }
@@ -41,8 +43,41 @@ class GoodGridContainer extends Component {
             });
     }
 
-    onAddedToCart(good) {
-        console.log(good.id);
+
+
+    onAddedToCart(product) {
+        if ("max@gmail.com") {
+            this.props.toolShopApi.checkEmail("max@gmail.com").then(([user]) => {
+                const { id, isLogged, cart, total } = user;
+                let newCart = [...cart];
+                let newTotal = total;
+                if (
+                    typeof user != "undefined" &&
+                    isLogged === true
+                ) {
+                    let good = cart.find((el) => el.id === product.id);
+                    const goodIndex = cart.findIndex((el) => el.id === product.id);
+                    if (good) {
+                        cart[goodIndex].quantity += 1;
+                    } else {
+                        product.quantity = 1;
+                        newCart = [...newCart, product];
+                    }
+                    newTotal += product.price;
+                    this.props.toolShopApi
+                        .patchData(id, { cart: newCart, total: newTotal })
+                        .then(({ cart }) => {
+                            // changeCartHeader(cart, newTotal);
+                            // btnAddCart.textContent = "Added to Cart";
+                            // btnAddCart.classList.add("good_item_added");
+                        });
+                } else {
+                    alert("You are not logged in!");
+                }
+            });
+        } else {
+            alert("You are not logged in!");
+        }
     }
 
     render() {
