@@ -46,8 +46,8 @@ class GoodGridContainer extends Component {
 
 
     onAddedToCart(product) {
-        if ("max@gmail.com") {
-            this.props.toolShopApi.checkEmail("max@gmail.com").then(([user]) => {
+        if (login) {
+            this.props.toolShopApi.checkEmail(login).then(([user]) => {
                 const { id, isLogged, cart, total } = user;
                 let newCart = [...cart];
                 let newTotal = total;

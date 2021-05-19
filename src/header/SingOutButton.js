@@ -1,6 +1,6 @@
-export function SingOutButton(props) {
+export function SingOutButton({onSingOut}) {
     return (
-        <button className="btn btn-secondary"  onClick={props.showModalSingIn}>
+        <button className="btn btn-secondary"  onClick={onSingOut}>
             Sing Out
         </button>
     )

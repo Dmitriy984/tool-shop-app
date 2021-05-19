@@ -2,15 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SearchPanel from "./SearchPanel";
 import {SingInButton} from "./SingInButton";
-import './Header.scss';
 import {SingUpButton} from "./SingUpButton";
 import {SingOutButton} from "./SingOutButton";
+import './Header.scss';
 
-export default function Header({ numItems, total, showModalSingIn, isLoggedIn }) {
+export default function Header({
+   numItems,
+   total,
+   showModalSingIn,
+   showModalSingUp,
+   isLoggedIn,
+   onSingOut,
+   login
+}) {
     let button;
     let element;
     if (isLoggedIn) {
-        button = <SingOutButton />;
+        button = <SingOutButton onSingOut={onSingOut} />;
         element = (
             <Link to="/orders" >
                 <h5>Orders</h5>
@@ -18,7 +26,7 @@ export default function Header({ numItems, total, showModalSingIn, isLoggedIn })
         );
     } else {
         button = <SingInButton showModalSingIn={showModalSingIn}/>;
-        element = <SingUpButton />;
+        element = <SingUpButton showModalSingUp={showModalSingUp} />;
     }
     return (
         <header
@@ -28,6 +36,7 @@ export default function Header({ numItems, total, showModalSingIn, isLoggedIn })
                 Tool Shop
             </Link>
             <SearchPanel />
+            { isLoggedIn ? login : null }
             { button }
             { element }
             <Link to="/cart" >

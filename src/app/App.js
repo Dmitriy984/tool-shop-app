@@ -6,7 +6,7 @@ import CartPage from "../pages/CartPage";
 import OrderPage from "../pages/OrderPage";
 import ModalSingIn from "../header/ModalSingIn";
 import ModalSingUp from "../header/ModalSingUp";
-import {readCookie} from "../common/utils/helpers";
+import {deleteCookie, readCookie} from "../common/utils/helpers";
 import compose from "../common/utils/compose";
 import withToolShopApi from "../common/hoc/withToolShopApi";
 import './App.scss';
@@ -15,10 +15,17 @@ export const login = readCookie("email");
 
 class App extends Component {
     state = {
-        show: false,
+        userId: 0,
+        showSingIn: false,
+        showSingUp: false,
         isLoggedIn: false,
         numItems: 0,
-        total: 0
+        total: 0,
+        emailSinIn: '',
+        passwordSinIn: '',
+        emailSingUp: '',
+        passwordSingUp: '',
+        login: ''
     };
 
     componentDidMount() {
@@ -26,35 +33,174 @@ class App extends Component {
             this.props.toolShopApi.checkEmail(login).then(([user]) => {
                 const {id, email, isLogged, cart, total} = user;
                 if (typeof user != "undefined" && isLogged === true) {
+                    this.setState({userId: id});
                     this.setState({isLoggedIn: true});
                     this.setState({numItems: cart.length});
                     this.setState({total: total});
+                    this.setState({login: email});
                 }
             });
         }
     }
 
-    showModal = e => {
+    showModalSingIn = () => {
         this.setState({
-            show: true
+            showSingUp: false,
+            showSingIn: true
         });
     };
 
-    closeModal = e => {
+    closeModalSingIn = () => {
         this.setState({
-            show: false
+            showSingIn: false
         });
     };
+
+    showModalSingUp = () => {
+        this.setState({
+            showSingIn: false,
+            showSingUp: true
+        });
+    };
+
+    closeModalSingUp = () => {
+        this.setState({
+            showSingUp: false
+        });
+    };
+
+    onEmailSingInChange = (emailSingIn) => {
+        this.setState({emailSingIn});
+    }
+
+    onPasswordSingInChange = (passwordSingIn) => {
+        this.setState({passwordSingIn});
+    }
+
+    onEmailSingUpChange = (emailSingUp) => {
+        this.setState({emailSingUp});
+    }
+
+    onPasswordSingUpChange = (passwordSingUp) => {
+        this.setState({passwordSingUp});
+    }
+
+    onSingIn = e => {
+        e.preventDefault();
+        let enteredEmail = this.state.emailSingIn;
+        let enteredPassword = this.state.passwordSingIn;
+
+        if (enteredEmail === "" || enteredPassword === "") {
+            alert("Fill in the fields");
+            return false;
+        }
+
+        this.props.toolShopApi.checkEmail(enteredEmail).then(([user]) => {
+            if (typeof user == "undefined") {
+                alert("User with this E-mail does not exist");
+            } else {
+                const {id, email, password, cart, total} = user;
+                if (password === enteredPassword) {
+                    this.props.toolShopApi.patchData(id, {isLogged: true})
+                        .then(() => {
+                            this.setState({
+                                userId: id,
+                                showSingIn: false,
+                                isLoggedIn: true,
+                                numItems: cart.length,
+                                total: total,
+                                emailSingIn: '',
+                                passwordSingIn: '',
+                                login: email
+                            });
+                            document.cookie = `email=${email}`;
+                        })
+                } else {
+                    alert("Wrong password entered");
+                }
+            }
+        })
+    }
+
+    onSingUp = e => {
+        e.preventDefault();
+        let email = this.state.emailSingUp;
+        let password = this.state.passwordSingUp;
+
+        if (email === "" || password === "") {
+            alert("Fill in the fields");
+            return false;
+        }
+
+        let newUser = {
+            id: Date.now(),
+            email,
+            password,
+            cart: [],
+            currentOrders: [],
+            completedOrders: [],
+            totalOrders: [],
+            total: 0,
+            isLogged: false,
+        };
+
+        this.props.toolShopApi.checkEmail(email).then(([user]) => {
+            if (user && user.email === email) {
+                alert("User with this E-mail does exist");
+            } else {
+                this.props.toolShopApi
+                    .postUserData(newUser)
+                    .then((user) => {
+                        this.setState({
+                            showSingUp: false,
+                            emailSingUp: '',
+                            passwordSingUp: '',
+                        });
+                        alert(
+                            `You are registered! Sign in to your account using your email ${user.email}`
+                        );
+                    });
+            }
+        });
+    }
+
+    onSingOut = () => {
+        this.props.toolShopApi.patchData(this.state.userId, {isLogged: false})
+            .then(() => {
+                this.setState({
+                    userId: 0,
+                    isLoggedIn: false,
+                    numItems: 0,
+                    total: 0,
+                    login: ''
+                });
+                deleteCookie("email");
+            })
+    }
 
     render() {
-        const { show, isLoggedIn, numItems, total } = this.state;
+        const {
+            showSingIn,
+            showSingUp,
+            isLoggedIn,
+            numItems,
+            total,
+            emailSingIn,
+            passwordSingIn,
+            emailSingUp,
+            passwordSingUp,
+            login
+        } = this.state;
         return (
             <div id="page">
                 <Header
                     numItems={numItems}
                     total={total}
-                    showModalSingIn={this.showModal}
+                    showModalSingIn={this.showModalSingIn}
+                    showModalSingUp={this.showModalSingUp}
                     isLoggedIn={isLoggedIn}
+                    onSingOut={this.onSingOut}
+                    login={login}
                 />
                 <nav>
                     Navigation
@@ -62,18 +208,28 @@ class App extends Component {
                 <main>
                     <ModalSingIn
                         caption="Sing In"
-                        onClose={this.closeModal}
-                        show={show}
+                        onClose={this.closeModalSingIn}
+                        show={showSingIn}
+                        email={emailSingIn}
+                        password={passwordSingIn}
+                        onEmailChange={this.onEmailSingInChange}
+                        onPasswordChange={this.onPasswordSingInChange}
+                        onSingIn={this.onSingIn}
                     />
                     <ModalSingUp
                         caption="Sing Up"
-                        // onClose={this.closeModal}
-                        // show={this.state.show}
+                        onClose={this.closeModalSingUp}
+                        show={showSingUp}
+                        email={emailSingUp}
+                        password={passwordSingUp}
+                        onEmailChange={this.onEmailSingUpChange}
+                        onPasswordChange={this.onPasswordSingUpChange}
+                        onSingUp={this.onSingUp}
                     />
                     <Switch>
-                        <Route path="/" exact component={HomePage} />
-                        <Route path="/cart" component={CartPage} />
-                        <Route path="/orders" component={OrderPage} />
+                        <Route path="/" exact component={HomePage}/>
+                        <Route path="/cart" component={CartPage}/>
+                        <Route path="/orders" component={OrderPage}/>
                     </Switch>
                 </main>
                 <footer>
