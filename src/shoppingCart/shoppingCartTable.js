@@ -6,9 +6,23 @@ export default function ShoppingCartTable({items, total, onDelete, onIncrease, o
         const {id, title, quantity, price} = item;
         return (
             <tr key={id}>
-                <th scope="row">{idx + 1}</th>
+                <td>{idx + 1}</td>
                 <td>{title}</td>
-                <td>{quantity}</td>
+                <td>
+                    <button
+                        onClick={() => onDiminish(id)}
+                        className="btn btn-outline-warning btn-sm"
+                    >
+                        <i className="fa fa-minus-circle"/>
+                    </button>
+                    {quantity}
+                    <button
+                        onClick={() => onIncrease(id)}
+                        className="btn btn-outline-success btn-sm"
+                    >
+                        <i className="fa fa-plus-circle"/>
+                    </button>
+                </td>
                 <td>&euro; {price}</td>
                 <td>
                     <button
@@ -16,18 +30,6 @@ export default function ShoppingCartTable({items, total, onDelete, onIncrease, o
                         className="btn btn-outline-danger btn-sm"
                     >
                         <i className="fa fa-trash-o"/>
-                    </button>
-                    <button
-                        onClick={() => onIncrease(id)}
-                        className="btn btn-outline-success btn-sm"
-                    >
-                        <i className="fa fa-plus-circle"/>
-                    </button>
-                    <button
-                        onClick={() => onDiminish(id)}
-                        className="btn btn-outline-warning btn-sm"
-                    >
-                        <i className="fa fa-minus-circle"/>
                     </button>
                 </td>
             </tr>

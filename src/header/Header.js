@@ -40,8 +40,10 @@ export default function Header({
             { button }
             { element }
             <Link to="/cart" >
-                <i className={`fa fa-shopping-cart`} />
-                {numItems} items (&euro;{total})
+                <p><i className={`fa fa-shopping-cart`} />
+                    {numItems} items
+                </p>
+                (&euro;{total})
             </Link>
         </header>
     );

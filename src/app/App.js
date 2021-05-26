@@ -228,7 +228,7 @@ class App extends Component {
                     />
                     <Switch>
                         <Route path="/" exact component={HomePage}/>
-                        <Route path="/cart" component={CartPage}/>
+                        <Route path="/cart" render={() => <CartPage numItems={numItems} total={total} />} />
                         <Route path="/orders" component={OrderPage}/>
                     </Switch>
                 </main>

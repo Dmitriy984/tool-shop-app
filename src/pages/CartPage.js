@@ -1,31 +1,35 @@
 import React, {Component} from "react";
 import ShoppingCartTable from "../shoppingCart/shoppingCartTable";
+import compose from "../common/utils/compose";
+import withToolShopApi from "../common/hoc/withToolShopApi";
+import {login} from "../app/App";
+import "./CartPage.scss";
 
-export default class CartPage extends Component {
+class CartPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cart: [
-                {
-                    "id": 1,
-                    "title": "Makita FS6300 Drywall Screwdriver 240V",
-                    "image": "https://cdn11.bigcommerce.com/s-7holhynnib/images/stencil/original/products/56948/58101/5aafb4bce422a700107579ab__31349.1583489852.jpg",
-                    "quantity": 0,
-                    "price": 105
-                },
-                {
-                    "id": 2,
-                    "title": "Makita VC2012L L Class Wet & Dry Dust Extractor 20L (110V)",
-                    "image": "https://cdn11.bigcommerce.com/s-7holhynnib/images/stencil/original/products/56629/56927/5aafb4cde422a70010757c42__61664.1584098348.jpg",
-                    "quantity": 0,
-                    "price": 195
-                }
-            ],
+            id: 0,
+            cart: [],
             total: 0
         };
         this.onDelete = this.onDelete.bind(this);
         this.onIncrease = this.onIncrease.bind(this);
         this.onDiminish = this.onDiminish.bind(this);
+    }
+
+    componentDidMount() {
+        if (login) {
+            this.props.toolShopApi.checkEmail(login).then(([user]) => {
+                if (typeof user != "undefined" && user.isLogged === true) {
+                    const { id, cart, total } = user;
+                    this.setState({ id, cart, total });
+                }
+            })
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
     }
 
     onDelete(id) {
@@ -41,6 +45,11 @@ export default class CartPage extends Component {
     }
 
     render() {
+
+        if (this.state.cart.length === 0) {
+            return <h1>No goods</h1>
+        }
+
         return (
             <div>
                 <ShoppingCartTable
@@ -50,7 +59,12 @@ export default class CartPage extends Component {
                 onIncrease={this.onIncrease}
                 onDiminish={this.onDiminish}
                 />
+                <button className="btn btn-primary cart__table_order">To Order</button>
             </div>
         );
     }
 }
+
+export default compose(
+    withToolShopApi()
+)(CartPage);

@@ -37,6 +37,7 @@ export default class ModalSingIn extends Component {
                             className="form-control"
                             id="inputEmailSingIn"
                             aria-describedby="emailHelp"
+                            autoComplete="email"
                             value={email}
                             onChange={this.handleEmailChange}
                         />
@@ -48,6 +49,7 @@ export default class ModalSingIn extends Component {
                         id="inputPasswordSingIn"
                         className="form-control"
                         aria-describedby="passwordHelpBlock"
+                        autoComplete="current-password"
                         value={password}
                         onChange={this.handlePasswordChange}
                     />
