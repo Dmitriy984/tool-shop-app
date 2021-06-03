@@ -178,6 +178,13 @@ class App extends Component {
             })
     }
 
+    updateCartBlockHeader = (cart, total) => {
+        this.setState({
+            numItems: cart.length,
+            total: total,
+        })
+    }
+
     render() {
         const {
             showSingIn,
@@ -227,8 +234,15 @@ class App extends Component {
                         onSingUp={this.onSingUp}
                     />
                     <Switch>
-                        <Route path="/" exact component={HomePage}/>
-                        <Route path="/cart" render={() => <CartPage numItems={numItems} total={total} />} />
+                        <Route path="/" exact
+                               render={() => <HomePage
+                                   updateCartBlockHeader={this.updateCartBlockHeader}
+                               />} />
+                        <Route path="/cart" render={() => <CartPage
+                            numItems={numItems}
+                            total={total}
+                            updateCartBlockHeader={this.updateCartBlockHeader}
+                        />} />
                         <Route path="/orders" component={OrderPage}/>
                     </Switch>
                 </main>

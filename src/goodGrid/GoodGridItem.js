@@ -13,7 +13,7 @@ export default function GoodGridItem({ good, onAddedToCart }) {
             <img src={image} alt="cover" />
             <p>{title}</p>
             <p>&euro;{price}</p>
-            <p>{quantity}</p>
+            <p>{quantity > 0 && null}</p>
             <button
                 onClick={onAddedToCart}
                 className="btn btn-info"

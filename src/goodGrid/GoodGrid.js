@@ -31,7 +31,7 @@ class GoodGridContainer extends Component {
             goods: [],
             loading: true,
             error: false,
-            quantity: 0
+            quantity: []
         };
         this.onAddedToCart = this.onAddedToCart.bind(this);
     }
@@ -43,11 +43,14 @@ class GoodGridContainer extends Component {
             });
     }
 
+    componentDidUpdate(prevProps) {
 
+    }
 
     onAddedToCart(product) {
+        const { toolShopApi, updateCartBlockHeader } = this.props;
         if (login) {
-            this.props.toolShopApi.checkEmail(login).then(([user]) => {
+            toolShopApi.checkEmail(login).then(([user]) => {
                 const { id, isLogged, cart, total } = user;
                 let newCart = [...cart];
                 let newTotal = total;
@@ -64,12 +67,10 @@ class GoodGridContainer extends Component {
                         newCart = [...newCart, product];
                     }
                     newTotal += product.price;
-                    this.props.toolShopApi
+                    toolShopApi
                         .patchData(id, { cart: newCart, total: newTotal })
-                        .then(({ cart }) => {
-                            // changeCartHeader(cart, newTotal);
-                            // btnAddCart.textContent = "Added to Cart";
-                            // btnAddCart.classList.add("good_item_added");
+                        .then(({ cart, total }) => {
+                            updateCartBlockHeader(cart, total);
                         });
                 } else {
                     alert("You are not logged in!");

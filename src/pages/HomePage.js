@@ -1,10 +1,10 @@
 import React from "react";
 import GoodGridContainer from "../goodGrid/GoodGrid";
 
-export default function HomePage(props) {
+export default function HomePage({ updateCartBlockHeader }) {
     return (
         <div>
-            <GoodGridContainer />
+            <GoodGridContainer updateCartBlockHeader={updateCartBlockHeader} />
         </div>
     );
 }
