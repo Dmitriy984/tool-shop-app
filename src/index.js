@@ -10,15 +10,14 @@ import ToolsShopApi from "./api/toolShopApi";
 const toolsShopApi = new ToolsShopApi();
 
 ReactDOM.render(
-    <React.StrictMode>
-            <ErrorBoundry>
-                <ToolShopApiProvider value={toolsShopApi}>
-                    <Router>
-                        <App />
-                    </Router>
-                </ToolShopApiProvider>
-            </ErrorBoundry>
-    </React.StrictMode>,
-    document.getElementById("root")
+  <React.StrictMode>
+    <ErrorBoundry>
+      <ToolShopApiProvider value={toolsShopApi}>
+        <Router>
+          <App />
+        </Router>
+      </ToolShopApiProvider>
+    </ErrorBoundry>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
-

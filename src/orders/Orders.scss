@@ -1,0 +1,51 @@
+.order__blocks {
+  width: 80vw;
+  margin: 4vw auto;
+  table {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+    font-family: 'Conv_LSANS', Sans-Serif;
+    font-size: 16px;
+  }
+}
+.order__blocks_title {
+  margin: 0 auto 2rem;
+  text-align: center;
+  color: #0f7f7f;
+  font-family: 'Kaushan Script', cursive;
+  font-size: 35px;
+  font-weight: bold;
+}
+.order__grid {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin-bottom: 3rem;
+  border: 1px solid #0f7f7f;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #6defc9;
+}
+.order__grid_number {
+  &:hover {
+    cursor: pointer;
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background-color: #a8e3de;
+  font-size: 18px;
+  font-weight: bold;
+}
+.order__blocks_total {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+}
+.order__grid_list {
+  padding: 5px 10px;
+  background-color: antiquewhite;
+}

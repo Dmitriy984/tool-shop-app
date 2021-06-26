@@ -1,0 +1,38 @@
+.order__details_title {
+  margin: 0 auto 2rem;
+  text-align: center;
+  font-family: 'Kaushan Script', cursive;
+  font-size: 35px;
+  font-weight: bold;
+}
+.order__details {
+  width: 80vw;
+  margin: 4vw auto;
+  table {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+    font-family: 'Conv_LSANS', Sans-Serif;
+    font-size: 16px;
+  }
+}
+.order__details_total {
+  margin-top: 7px;
+  margin-bottom: 0;
+  text-align: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+.order__details_btn {
+  &:hover {
+    cursor: pointer;
+  }
+  display: block;
+  margin: 0 auto 5vw;
+  border-radius: 5px;
+  box-shadow: 1px 2px 3px dimgrey;
+  color: red;
+  font-size: 18px;
+}
