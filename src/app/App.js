@@ -33,7 +33,7 @@ class App extends Component {
     if (login) {
       this.props.toolShopApi.checkEmail(login).then(([user]) => {
         const { id, email, isLogged, cart, total } = user;
-        if (typeof user != "undefined" && isLogged === true) {
+        if (typeof user !== "undefined" && isLogged === true) {
           this.setState({ userId: id });
           this.setState({ isLoggedIn: true });
           this.setState({ numItems: cart.length });
@@ -103,16 +103,14 @@ class App extends Component {
         const { id, email, password, cart, total } = user;
         if (password === enteredPassword) {
           this.props.toolShopApi.patchData(id, { isLogged: true }).then(() => {
-            this.setState({
-              userId: id,
-              showSingIn: false,
-              isLoggedIn: true,
-              numItems: cart.length,
-              total: total,
-              emailSingIn: "",
-              passwordSingIn: "",
-              login: email,
-            });
+            this.setState({ isLoggedIn: true });
+            this.setState({ userId: id });
+            this.setState({ login: email });
+            this.setState({ numItems: cart.length });
+            this.setState({ total: total });
+            this.setState({ emailSingIn: "" });
+            this.setState({ passwordSingIn: "" });
+            this.setState({ showSingIn: false });
             document.cookie = `email=${email}`;
           });
         } else {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import compose from "../common/utils/compose";
 import withToolShopApi from "../common/hoc/withToolShopApi";
 import { login } from "../app/App";
+import { Link } from "react-router-dom";
 import "./Orders.scss";
 
 class Orders extends Component {
@@ -49,19 +50,18 @@ class Orders extends Component {
           {orders.map((order, idx) => {
             return (
               <div key={orderNumbers[idx]} className="order__grid">
-                <div
-                  className="order__grid_number"
-                  onClick={() =>
-                    (window.location.href = `order-details#${orderNumbers[idx]}`)
-                  }
-                >
-                  <span>
-                    {`Order ${orderNumbers[idx]} from ${orderDates[idx]}`}
-                  </span>
-                  <span className="order__blocks_total">
-                    Total: &euro;{`${totalOrders[idx]}`}
-                  </span>
-                </div>
+                <Link to={`/order-details#${orderNumbers[idx]}`}>
+                  <div
+                    className="order__grid_number"
+                  >
+                    <span>
+                      {`Order ${orderNumbers[idx]} from ${orderDates[idx]}`}
+                    </span>
+                    <span className="order__blocks_total">
+                      Total: &euro;{`${totalOrders[idx]}`}
+                    </span>
+                  </div>
+                </Link>
                 <div className="order__grid_list">
                   {order.map((item) => item.title).join(",  ")}
                 </div>
