@@ -36,7 +36,7 @@ class App extends Component {
         if (typeof user !== "undefined" && isLogged === true) {
           this.setState({ userId: id });
           this.setState({ isLoggedIn: true });
-          this.setState({ numItems: cart.length });
+          this.setState({ numItems: cart.reduce((acc, item) => acc + item.quantity, 0) });
           this.setState({ total: total });
           this.setState({ login: email });
         }
@@ -177,7 +177,7 @@ class App extends Component {
 
   updateCartBlockHeader = (cart, total) => {
     this.setState({
-      numItems: cart.length,
+      numItems: cart.reduce((acc, item) => acc + item.quantity, 0),
       total: total,
     });
   };

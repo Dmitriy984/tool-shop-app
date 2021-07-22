@@ -37,6 +37,27 @@ class Orders extends Component {
     }
   }
 
+  componentDidUpdate() {
+      if (login) {
+        this.props.toolShopApi.checkEmail(login).then(([user]) => {
+          if (typeof user !== "undefined" && user.isLogged === true) {
+            const {
+              currentOrders,
+              currentOrderNumbers,
+              currentOrderDates,
+              totalOrders,
+            } = user;
+            this.setState({
+              orders: currentOrders,
+              orderNumbers: currentOrderNumbers,
+              orderDates: currentOrderDates,
+              totalOrders,
+            });
+          }
+        });
+      }
+    }
+  
   render() {
     const { orders, orderNumbers, orderDates, totalOrders } = this.state;
     if (orders.length === 0) {

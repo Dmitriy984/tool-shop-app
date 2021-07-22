@@ -4,6 +4,7 @@ import compose from "../common/utils/compose";
 import withToolShopApi from "../common/hoc/withToolShopApi";
 import { login } from "../app/App";
 import { patchOrder } from "../common/utils/patchOrder";
+import history from "../history";
 import "./CartPage.scss";
 
 class CartPage extends Component {
@@ -24,17 +25,20 @@ class CartPage extends Component {
       this.props.toolShopApi.checkEmail(login).then(([user]) => {
         if (typeof user !== "undefined" && user.isLogged === true) {
           const { id, cart, total } = user;
-          this.setState({ id, cart, total });
+          this.setState({
+            id,
+            cart,
+            total,
+          });
         }
       });
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {}
-
   onDelete(goodId) {
     const { id, cart, total } = this.state;
     let good = cart.find((el) => el.id === goodId);
+    console.log(good);
     const { price, quantity } = good;
     const goodIndex = cart.findIndex((el) => el.id === goodId);
     this.props.toolShopApi
@@ -43,22 +47,89 @@ class CartPage extends Component {
         cart: [...cart.slice(0, goodIndex), ...cart.slice(goodIndex + 1)],
       })
       .then(({ cart, total }) => {
-        this.setState({ cart, total });
+        this.setState({
+          cart,
+          total,
+        });
         this.props.updateCartBlockHeader(cart, total);
       });
   }
 
-  onIncrease(id) {
-    console.log("Increase", id);
+  onIncrease(goodId) {
+    const { id, cart } = this.state;
+    const goodIndex = cart.findIndex((el) => el.id === goodId);
+    this.props.toolShopApi.getGoodsFromCart(id).then(({ cart, total }) => {
+      let newQuantity = cart[goodIndex].quantity + 1;
+      // let newPrice = cart[goodIndex].price * newQuantity;
+      const newCartItem = {
+        ...cart[goodIndex],
+        quantity: newQuantity,
+      };
+      const newCart = cart.map((item) => {
+        if (item.id === newCartItem.id) {
+          return newCartItem;
+        }
+        return item;
+      });
+      let newTotal = total + cart[goodIndex].price;
+      this.props.toolShopApi
+        .patchData(id, {
+          cart: newCart,
+          total: newTotal,
+        })
+        .then(({ cart, total }) => {
+          this.setState({
+            cart,
+            total,
+          });
+          this.props.updateCartBlockHeader(cart, total);
+        });
+    });
   }
 
-  onDiminish(id) {
-    console.log("Diminish", id);
+  onDiminish(goodId) {
+    const { id, cart } = this.state;
+    const goodIndex = cart.findIndex((el) => el.id === goodId);
+    this.props.toolShopApi.getGoodsFromCart(id).then(({ cart, total }) => {
+      let newQuantity = cart[goodIndex].quantity - 1;
+      // let newPrice = cart[goodIndex].price * newQuantity;
+      const newCartItem = {
+        ...cart[goodIndex],
+        quantity: newQuantity,
+      };
+      const newCart = cart.map((item) => {
+        if (item.id === newCartItem.id) {
+          return newCartItem;
+        }
+        return item;
+      });
+      let newTotal = total - cart[goodIndex].price;
+      if (newQuantity !== 0) {
+        this.props.toolShopApi
+          .patchData(id, {
+            cart: newCart,
+            total: newTotal,
+          })
+          .then(({ cart, total }) => {
+            this.setState({
+              cart,
+              total
+            });
+            this.props.updateCartBlockHeader(cart, total);
+          });
+      } else {
+        this.onDelete(newCartItem.id);
+      }
+    });
   }
 
   render() {
     if (this.state.cart.length === 0) {
-      return <h1>No goods</h1>;
+      return (
+        <div>
+          <h1> No goods </h1>
+        </div>
+      );
     }
 
     return (
@@ -70,6 +141,7 @@ class CartPage extends Component {
           onIncrease={this.onIncrease}
           onDiminish={this.onDiminish}
         />
+        <button onClick={() => history.goBack()}> Go Back </button>
         <button
           className="btn btn-primary cart__table_order"
           onClick={() => {
@@ -104,9 +176,14 @@ class CartPage extends Component {
                     newCurrentOrders,
                     newTotalOrders,
                     newCurrentOrderNumbers,
-                    newCurrentOrderDates,
-                    "orders"
+                    newCurrentOrderDates
                   );
+                  this.setState({
+                    cart: newCart,
+                    total: newTotal
+                  });
+                  this.props.updateCartBlockHeader(newCart, newTotal);
+                  history.push("/orders");
                 }
               );
           }}

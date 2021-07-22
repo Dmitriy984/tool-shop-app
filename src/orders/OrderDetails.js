@@ -3,7 +3,7 @@ import compose from "../common/utils/compose";
 import withToolShopApi from "../common/hoc/withToolShopApi";
 import { login } from "../app/App";
 import { patchOrder } from "../common/utils/patchOrder";
-import { Link } from "react-router-dom";
+import history from "../history";
 import "./OrderDetails.scss";
 
 class OrderDetails extends Component {
@@ -85,8 +85,7 @@ class OrderDetails extends Component {
       updateOrdersDetails(orders),
       updateOrdersDetails(totalOrders),
       updateOrdersDetails(orderNumbers),
-      updateOrdersDetails(orderDates),
-      // "orders"
+      updateOrdersDetails(orderDates)
     );
   }
 
@@ -132,25 +131,25 @@ class OrderDetails extends Component {
           <tbody>{order.map(renderRow)}</tbody>
         </table>
         <div className="order__details_total">Total: &euro;{totalOrder}</div>
-        <Link to="/orders">
-          <button
-            className="order__details_btn"
-            onClick={() =>
-              this.removeOrder(
-                orderIndex,
-                id,
-                cart,
-                total,
-                orders,
-                totalOrders,
-                orderNumbers,
-                orderDates
-              )
+        <button
+          className="btn btn-primary order__details_btn"
+          onClick={() => {
+            this.removeOrder(
+              orderIndex,
+              id,
+              cart,
+              total,
+              orders,
+              totalOrders,
+              orderNumbers,
+              orderDates
+            );
+            history.goBack();
             }
-          >
-            Cancel the order
-          </button>
-        </Link>
+          }
+        >
+          Cancel the order
+        </button>
       </div>
     );
   }

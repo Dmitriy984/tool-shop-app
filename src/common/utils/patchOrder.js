@@ -6,8 +6,7 @@ export function patchOrder(
   currentOrders,
   totalOrders,
   currentOrderNumbers,
-  currentOrderDates,
-  htmlPage
+  currentOrderDates
 ) {
   api
     .patchData(id, {
@@ -16,11 +15,6 @@ export function patchOrder(
       cart,
       total,
       currentOrderNumbers,
-      currentOrderDates,
-    })
-    .then((data) => {
-      if (cart.length === 0 && htmlPage != null) {
-        window.location.href = htmlPage;
-      }
+      currentOrderDates
     });
 }

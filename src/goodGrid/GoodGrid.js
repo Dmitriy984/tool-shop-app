@@ -42,8 +42,6 @@ class GoodGridContainer extends Component {
     });
   }
 
-  componentDidUpdate(prevProps) {}
-
   onAddedToCart(product) {
     const { toolShopApi, updateCartBlockHeader } = this.props;
     if (login) {

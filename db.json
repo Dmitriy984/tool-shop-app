@@ -11,9 +11,7 @@
       "totalOrders": [],
       "isLogged": true,
       "currentOrderNumbers": [],
-      "currentOrderDates": [],
-      "htmlPage": null,
-      "isLoggied": true
+      "currentOrderDates": []
     },
     {
       "id": 2,
